@@ -1,20 +1,5 @@
 # BT3 — Chuyển đổi từ SOA sang Microservice Architecture (REST API)
-
-## Cấu trúc project
-
-```
-bt3/
-├── eureka-server/          # Service Registry, chạy trước (port 8761)
-├── book-service/           # Quản lý sách (port 8082)
-├── borrowing-service/      # Quản lý mượn/trả (port 8083)
-├── ANALYSIS_SOA_vs_MSA.md  # Bài phân tích yêu cầu 4
-└── README.md
-```
-
 ---
-
-## Vấn đề và cách sửa (yêu cầu 1 & 2)
-
 ### Code cũ (có vấn đề)
 
 ```java
@@ -29,7 +14,6 @@ public class BookClientService {
     }
 }
 ```
-
 **Vấn đề 1 — IP cứng:**
 book-service khi scale lên nhiều instance thì mỗi instance có IP khác nhau. Code cũ chỉ biết 1 địa chỉ `192.168.1.15:8082`, khi instance đó chết hoặc IP thay đổi (rất thường xảy ra trong môi trường container) thì service sập ngay. Ngoài ra dù scale lên 5 instance đi nữa thì toàn bộ traffic vẫn chỉ dồn vào 1 instance.
 
@@ -101,6 +85,5 @@ public class BookClientService {
 | POST | `/api/borrowings/{id}/notify-overdue` | Gửi thông báo quá hạn |
 | POST | `/api/borrowings/notify-overdue/batch` | Gửi hàng loạt |
 
-Endpoint `POST /api/borrowings/{id}/notify-overdue` là REST thay thế cho thao tác `notifyOverdue` trong ESB ở Bài 2.
 
 ---
