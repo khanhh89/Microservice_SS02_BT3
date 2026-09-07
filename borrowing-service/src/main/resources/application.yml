@@ -1,0 +1,33 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: borrowing-service
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    preferIpAddress: false
+    instanceId: ${spring.application.name}:${server.port}
+
+# Cấu hình Spring Cloud LoadBalancer
+spring.cloud.loadbalancer:
+  retry:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.librax: DEBUG
+    org.springframework.cloud.loadbalancer: INFO

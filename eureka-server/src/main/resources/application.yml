@@ -1,0 +1,25 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: eureka-server
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    # Eureka server không tự đăng ký vào chính mình
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    # Tắt chế độ self-preservation trong môi trường dev để dễ test
+    enableSelfPreservation: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

@@ -1,0 +1,30 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    # Đây là tên logic được đăng ký lên Eureka.
+    # borrowing-service sẽ gọi "http://book-service/..." thay vì IP cứng.
+    name: book-service
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    # Dùng hostname thay vì IP để tránh lỗi khi IP thay đổi
+    preferIpAddress: false
+    instanceId: ${spring.application.name}:${server.port}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.librax: DEBUG
